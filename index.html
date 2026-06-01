@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Idiomas Global | Aprende Inglés, Francés, Portugués y Más</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#f4f7fb;
+color:#333;
+}
+
+header{
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+color:white;
+padding:100px 20px;
+text-align:center;
+}
+
+header h1{
+font-size:3.5rem;
+margin-bottom:15px;
+}
+
+header p{
+font-size:1.2rem;
+max-width:800px;
+margin:auto;
+}
+
+.btn{
+display:inline-block;
+margin-top:25px;
+padding:15px 30px;
+background:white;
+color:#2563eb;
+text-decoration:none;
+font-weight:600;
+border-radius:50px;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-3px);
+}
+
+section{
+max-width:1200px;
+margin:auto;
+padding:80px 20px;
+}
+
+.title{
+text-align:center;
+margin-bottom:50px;
+}
+
+.title h2{
+font-size:2.5rem;
+color:#2563eb;
+}
+
+.courses{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.card h3{
+margin-bottom:15px;
+color:#2563eb;
+}
+
+.card ul{
+padding-left:20px;
+}
+
+.card li{
+margin-bottom:10px;
+}
+
+.languages{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+}
+
+.language{
+background:white;
+padding:25px;
+border-radius:15px;
+text-align:center;
+font-size:1.2rem;
+font-weight:600;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.test{
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.test button{
+background:#2563eb;
+color:white;
+border:none;
+padding:15px 25px;
+border-radius:10px;
+cursor:pointer;
+font-size:16px;
+margin-top:20px;
+}
+
+.result{
+margin-top:20px;
+font-size:1.2rem;
+font-weight:bold;
+}
+
+.testimonials{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+.testimonial{
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.contact{
+background:white;
+padding:40px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.contact p{
+margin:10px 0;
+}
+
+footer{
+background:#111827;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+.whatsapp{
+position:fixed;
+right:20px;
+bottom:20px;
+width:65px;
+height:65px;
+background:#25D366;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+text-decoration:none;
+color:white;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+z-index:999;
+}
+
+@media(max-width:768px){
+
+header h1{
+font-size:2.5rem;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+
+<h1>🌍 Idiomas Global</h1>
+
+<p>
+Aprende idiomas desde cualquier lugar con lecciones prácticas,
+ejercicios interactivos y clases personalizadas.
+</p>
+
+<a href="#cursos" class="btn">
+Comenzar Ahora
+</a>
+
+</header>
+
+<section>
+
+<div class="title">
+<h2>🗣️ Idiomas Disponibles</h2>
+</div>
+
+<div class="languages">
+
+<div class="language">🇺🇸 Inglés</div>
+<div class="language">🇪🇸 Español</div>
+<div class="language">🇫🇷 Francés</div>
+<div class="language">🇵🇹 Portugués</div>
+<div class="language">🇮🇹 Italiano</div>
+<div class="language">🇩🇪 Alemán</div>
+
+</div>
+
+</section>
+
+<section id="cursos">
+
+<div class="title">
+<h2>📚 Cursos</h2>
+</div>
+
+<div class="courses">
+
+<div class="card">
+
+<h3>Inglés Básico</h3>
+
+<ul>
+<li>Saludos</li>
+<li>Números</li>
+<li>Colores</li>
+<li>Conversaciones simples</li>
+<li>Pronunciación inicial</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>Inglés Intermedio</h3>
+
+<ul>
+<li>Gramática</li>
+<li>Comprensión auditiva</li>
+<li>Vocabulario cotidiano</li>
+<li>Conversaciones reales</li>
+<li>Expresiones comunes</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>Inglés Avanzado</h3>
+
+<ul>
+<li>Negocios</li>
+<li>Entrevistas laborales</li>
+<li>Presentaciones</li>
+<li>Fluidez</li>
+<li>Preparación profesional</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="title">
+<h2>📝 Mini Test de Nivel</h2>
+</div>
+
+<div class="test">
+
+<p>
+Selecciona una opción para conocer tu nivel estimado.
+</p>
+
+<button onclick="evaluarNivel()">
+Realizar Evaluación
+</button>
+
+<div class="result" id="resultado"></div>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="title">
+<h2>⭐ Opiniones de Estudiantes</h2>
+</div>
+
+<div class="testimonials">
+
+<div class="testimonial">
+★★★★★
+<br><br>
+Las clases me ayudaron a mejorar mi inglés para el trabajo.
+</div>
+
+<div class="testimonial">
+★★★★★
+<br><br>
+Excelente metodología y material de estudio.
+</div>
+
+<div class="testimonial">
+★★★★★
+<br><br>
+Aprendí conversación básica en pocas semanas.
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="title">
+<h2>👨‍🏫 Clases Personalizadas</h2>
+</div>
+
+<div class="contact">
+
+<p>📱 WhatsApp: +51 999 999 999</p>
+
+<p>📧 contacto@idiomasglobal.com</p>
+
+<p>💻 Clases Online y Presenciales</p>
+
+<br>
+
+<a
+class="btn"
+href="https://wa.me/51999999999?text=Hola,%20quiero%20información%20sobre%20las%20clases%20de%20idiomas"
+target="_blank">
+
+Reservar Clase
+
+</a>
+
+</div>
+
+</section>
+
+<footer>
+
+© 2026 Idiomas Global - Todos los derechos reservados.
+
+</footer>
+
+<a
+class="whatsapp"
+href="https://wa.me/51999999999"
+target="_blank">
+
+💬
+
+</a>
+
+<script>
+
+function evaluarNivel(){
+
+const niveles=[
+"Nivel Básico",
+"Nivel Intermedio",
+"Nivel Intermedio Alto",
+"Nivel Avanzado"
+];
+
+const resultado=
+niveles[Math.floor(Math.random()*niveles.length)];
+
+document.getElementById("resultado").innerHTML=
+"Tu nivel estimado es: <br><br><strong>"+resultado+"</strong>";
+
+}
+
+</script>
+
+</body>
+</html>
