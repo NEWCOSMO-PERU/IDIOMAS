@@ -3,247 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaPro Academy</title>
 
-<title>Idiomas Global | Aprende Inglés, Francés, Portugués y Más</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root{
+--primary:#2563eb;
+--bg:#f5f7fb;
+--card:#ffffff;
+--text:#222;
+}
+
+.dark{
+--bg:#0f172a;
+--card:#1e293b;
+--text:#ffffff;
+}
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-html{
-scroll-behavior:smooth;
+font-family:Poppins,sans-serif;
 }
 
 body{
-background:#f4f7fb;
-color:#333;
+background:var(--bg);
+color:var(--text);
+transition:.3s;
 }
 
 header{
 background:linear-gradient(135deg,#2563eb,#7c3aed);
 color:white;
-padding:100px 20px;
+padding:80px 20px;
 text-align:center;
 }
 
 header h1{
-font-size:3.5rem;
-margin-bottom:15px;
-}
-
-header p{
-font-size:1.2rem;
-max-width:800px;
-margin:auto;
+font-size:3rem;
 }
 
 .btn{
 display:inline-block;
-margin-top:25px;
-padding:15px 30px;
+padding:12px 25px;
 background:white;
 color:#2563eb;
+border-radius:30px;
 text-decoration:none;
 font-weight:600;
-border-radius:50px;
-transition:.3s;
-}
-
-.btn:hover{
-transform:translateY(-3px);
+margin:10px;
 }
 
 section{
 max-width:1200px;
 margin:auto;
-padding:80px 20px;
+padding:60px 20px;
 }
 
 .title{
 text-align:center;
-margin-bottom:50px;
+margin-bottom:40px;
 }
 
-.title h2{
-font-size:2.5rem;
-color:#2563eb;
-}
-
-.courses{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:25px;
-}
-
-.card{
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-8px);
-}
-
-.card h3{
-margin-bottom:15px;
-color:#2563eb;
-}
-
-.card ul{
-padding-left:20px;
-}
-
-.card li{
-margin-bottom:10px;
-}
-
-.languages{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:20px;
-}
-
-.language{
-background:white;
-padding:25px;
-border-radius:15px;
-text-align:center;
-font-size:1.2rem;
-font-weight:600;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.test{
-background:white;
-padding:40px;
-border-radius:20px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-text-align:center;
-}
-
-.test button{
-background:#2563eb;
-color:white;
-border:none;
-padding:15px 25px;
-border-radius:10px;
-cursor:pointer;
-font-size:16px;
-margin-top:20px;
-}
-
-.result{
-margin-top:20px;
-font-size:1.2rem;
-font-weight:bold;
-}
-
-.testimonials{
+.grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:20px;
 }
 
-.testimonial{
-background:white;
-padding:25px;
+.card{
+background:var(--card);
+padding:20px;
 border-radius:15px;
 box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
-.contact{
-background:white;
-padding:40px;
+.progress{
+height:10px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.progress div{
+height:100%;
+background:#22c55e;
+}
+
+.flashcard{
+cursor:pointer;
+text-align:center;
+font-size:24px;
+font-weight:bold;
+padding:30px;
+}
+
+.quiz button{
+margin-top:10px;
+width:100%;
+padding:10px;
+cursor:pointer;
+}
+
+.result{
+margin-top:15px;
+font-weight:bold;
+}
+
+.certificate{
+background:linear-gradient(135deg,#ffd700,#ffb700);
+padding:30px;
 border-radius:20px;
 text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
+color:#000;
 }
 
-.contact p{
-margin:10px 0;
-}
-
-footer{
-background:#111827;
+.premium{
+background:linear-gradient(135deg,#2563eb,#7c3aed);
 color:white;
-text-align:center;
 padding:30px;
+border-radius:20px;
+text-align:center;
+}
+
+.toggle{
+position:fixed;
+top:15px;
+right:15px;
+padding:10px;
+cursor:pointer;
+border:none;
+border-radius:10px;
 }
 
 .whatsapp{
 position:fixed;
 right:20px;
 bottom:20px;
-width:65px;
-height:65px;
+width:60px;
+height:60px;
 background:#25D366;
 border-radius:50%;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:30px;
 text-decoration:none;
 color:white;
-box-shadow:0 5px 15px rgba(0,0,0,.3);
-z-index:999;
+font-size:28px;
 }
 
-@media(max-width:768px){
-
-header h1{
-font-size:2.5rem;
+footer{
+text-align:center;
+padding:30px;
 }
-
-}
-
 </style>
-
 </head>
 <body>
 
+<button class="toggle" onclick="toggleDark()">🌙</button>
+
 <header>
-
-<h1>🌍 Idiomas Global</h1>
-
-<p>
-Aprende idiomas desde cualquier lugar con lecciones prácticas,
-ejercicios interactivos y clases personalizadas.
-</p>
-
-<a href="#cursos" class="btn">
-Comenzar Ahora
-</a>
-
+<h1>🌍 LinguaPro Academy</h1>
+<p>Aprende idiomas de forma práctica e interactiva.</p>
+<a href="#cursos" class="btn">Comenzar</a>
+<a href="https://wa.me/51999999999" class="btn">Clases Privadas</a>
 </header>
-
-<section>
-
-<div class="title">
-<h2>🗣️ Idiomas Disponibles</h2>
-</div>
-
-<div class="languages">
-
-<div class="language">🇺🇸 Inglés</div>
-<div class="language">🇪🇸 Español</div>
-<div class="language">🇫🇷 Francés</div>
-<div class="language">🇵🇹 Portugués</div>
-<div class="language">🇮🇹 Italiano</div>
-<div class="language">🇩🇪 Alemán</div>
-
-</div>
-
-</section>
 
 <section id="cursos">
 
@@ -251,48 +178,30 @@ Comenzar Ahora
 <h2>📚 Cursos</h2>
 </div>
 
-<div class="courses">
+<div class="grid">
 
 <div class="card">
-
-<h3>Inglés Básico</h3>
-
-<ul>
-<li>Saludos</li>
-<li>Números</li>
-<li>Colores</li>
-<li>Conversaciones simples</li>
-<li>Pronunciación inicial</li>
-</ul>
-
+<h3>🇺🇸 Inglés</h3>
+<div class="progress">
+<div style="width:80%"></div>
+</div>
+<p>80% completado</p>
 </div>
 
 <div class="card">
-
-<h3>Inglés Intermedio</h3>
-
-<ul>
-<li>Gramática</li>
-<li>Comprensión auditiva</li>
-<li>Vocabulario cotidiano</li>
-<li>Conversaciones reales</li>
-<li>Expresiones comunes</li>
-</ul>
-
+<h3>🇫🇷 Francés</h3>
+<div class="progress">
+<div style="width:55%"></div>
+</div>
+<p>55% completado</p>
 </div>
 
 <div class="card">
-
-<h3>Inglés Avanzado</h3>
-
-<ul>
-<li>Negocios</li>
-<li>Entrevistas laborales</li>
-<li>Presentaciones</li>
-<li>Fluidez</li>
-<li>Preparación profesional</li>
-</ul>
-
+<h3>🇩🇪 Alemán</h3>
+<div class="progress">
+<div style="width:30%"></div>
+</div>
+<p>30% completado</p>
 </div>
 
 </div>
@@ -302,20 +211,14 @@ Comenzar Ahora
 <section>
 
 <div class="title">
-<h2>📝 Mini Test de Nivel</h2>
+<h2>🎴 Flashcards</h2>
 </div>
 
-<div class="test">
+<div class="card flashcard" onclick="flipCard(this)"
+data-front="🇺🇸 Apple"
+data-back="🇪🇸 Manzana">
 
-<p>
-Selecciona una opción para conocer tu nivel estimado.
-</p>
-
-<button onclick="evaluarNivel()">
-Realizar Evaluación
-</button>
-
-<div class="result" id="resultado"></div>
+🇺🇸 Apple
 
 </div>
 
@@ -324,28 +227,18 @@ Realizar Evaluación
 <section>
 
 <div class="title">
-<h2>⭐ Opiniones de Estudiantes</h2>
+<h2>📝 Quiz</h2>
 </div>
 
-<div class="testimonials">
+<div class="card quiz">
 
-<div class="testimonial">
-★★★★★
-<br><br>
-Las clases me ayudaron a mejorar mi inglés para el trabajo.
-</div>
+<h3>¿Cómo se dice "Gracias" en inglés?</h3>
 
-<div class="testimonial">
-★★★★★
-<br><br>
-Excelente metodología y material de estudio.
-</div>
+<button onclick="checkAnswer(false)">Hello</button>
+<button onclick="checkAnswer(true)">Thank You</button>
+<button onclick="checkAnswer(false)">Goodbye</button>
 
-<div class="testimonial">
-★★★★★
-<br><br>
-Aprendí conversación básica en pocas semanas.
-</div>
+<div class="result" id="quizResult"></div>
 
 </div>
 
@@ -354,25 +247,56 @@ Aprendí conversación básica en pocas semanas.
 <section>
 
 <div class="title">
-<h2>👨‍🏫 Clases Personalizadas</h2>
+<h2>🏆 Certificado</h2>
 </div>
 
-<div class="contact">
+<div class="certificate">
 
-<p>📱 WhatsApp: +51 999 999 999</p>
+<h2>Certificado de Participación</h2>
 
-<p>📧 contacto@idiomasglobal.com</p>
-
-<p>💻 Clases Online y Presenciales</p>
+<p>Este certificado reconoce la finalización del curso.</p>
 
 <br>
 
-<a
-class="btn"
-href="https://wa.me/51999999999?text=Hola,%20quiero%20información%20sobre%20las%20clases%20de%20idiomas"
-target="_blank">
+<input id="studentName"
+placeholder="Escribe tu nombre"
+style="padding:10px;width:250px;">
 
-Reservar Clase
+<br><br>
+
+<button onclick="generateCertificate()">
+Generar Certificado
+</button>
+
+<h3 id="certName"></h3>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="title">
+<h2>💎 Premium</h2>
+</div>
+
+<div class="premium">
+
+<h2>S/10 Mensuales</h2>
+
+<p>
+✔ Todos los cursos<br>
+✔ Audios exclusivos<br>
+✔ Certificados<br>
+✔ Tutorías personalizadas
+</p>
+
+<br>
+
+<a href="https://wa.me/51999999999"
+style="background:white;color:#2563eb;padding:12px 20px;border-radius:20px;text-decoration:none;font-weight:bold;">
+
+Solicitar Premium
 
 </a>
 
@@ -381,36 +305,48 @@ Reservar Clase
 </section>
 
 <footer>
-
-© 2026 Idiomas Global - Todos los derechos reservados.
-
+© 2026 LinguaPro Academy
 </footer>
 
-<a
-class="whatsapp"
-href="https://wa.me/51999999999"
-target="_blank">
-
+<a class="whatsapp"
+href="https://wa.me/51999999999">
 💬
-
 </a>
 
 <script>
 
-function evaluarNivel(){
+function toggleDark(){
+document.body.classList.toggle('dark');
+}
 
-const niveles=[
-"Nivel Básico",
-"Nivel Intermedio",
-"Nivel Intermedio Alto",
-"Nivel Avanzado"
-];
+function flipCard(card){
 
-const resultado=
-niveles[Math.floor(Math.random()*niveles.length)];
+if(card.innerHTML.trim()===card.dataset.front){
+card.innerHTML=card.dataset.back;
+}else{
+card.innerHTML=card.dataset.front;
+}
 
-document.getElementById("resultado").innerHTML=
-"Tu nivel estimado es: <br><br><strong>"+resultado+"</strong>";
+}
+
+function checkAnswer(correct){
+
+const result=document.getElementById('quizResult');
+
+if(correct){
+result.innerHTML="✅ Correcto";
+}else{
+result.innerHTML="❌ Incorrecto";
+}
+
+}
+
+function generateCertificate(){
+
+const name=document.getElementById('studentName').value;
+
+document.getElementById('certName').innerHTML=
+"Otorgado a: <br><br><strong>"+name+"</strong>";
 
 }
 
