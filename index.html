@@ -1,356 +1,670 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LinguaPro Academy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaPro Academy | Plataforma de Idiomas de Vanguardia</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --purple: #7c3aed;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --radius: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-<style>
-:root{
---primary:#2563eb;
---bg:#f5f7fb;
---card:#ffffff;
---text:#222;
-}
+        .dark {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
 
-.dark{
---bg:#0f172a;
---card:#1e293b;
---text:#ffffff;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-}
+        body {
+            background: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
 
-body{
-background:var(--bg);
-color:var(--text);
-transition:.3s;
-}
+        /* --- CONTROLES FLOTANTES --- */
+        .toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: var(--card);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        .toggle:hover { transform: scale(1.1); }
 
-header{
-background:linear-gradient(135deg,#2563eb,#7c3aed);
-color:white;
-padding:80px 20px;
-text-align:center;
-}
+        /* --- HERO HEADER --- */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+            position: relative;
+        }
 
-header h1{
-font-size:3rem;
-}
+        header h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -1.5px;
+        }
 
-.btn{
-display:inline-block;
-padding:12px 25px;
-background:white;
-color:#2563eb;
-border-radius:30px;
-text-decoration:none;
-font-weight:600;
-margin:10px;
-}
+        header p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-section{
-max-width:1200px;
-margin:auto;
-padding:60px 20px;
-}
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: white;
+            color: var(--primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+        }
 
-.title{
-text-align:center;
-margin-bottom:40px;
-}
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            background: #f8fafc;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-}
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            box-shadow: none;
+        }
 
-.card{
-background:var(--card);
-padding:20px;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.1); color: white; }
 
-.progress{
-height:10px;
-background:#ddd;
-border-radius:20px;
-overflow:hidden;
-margin-top:10px;
-}
+        /* --- CONTENEDORES --- */
+        section {
+            max-width: 1140px;
+            margin: auto;
+            padding: 80px 20px;
+        }
 
-.progress div{
-height:100%;
-background:#22c55e;
-}
+        .title { text-align: center; margin-bottom: 50px; }
+        .title h2 { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; }
+        .title p { color: var(--text-muted); margin-top: 5px; }
 
-.flashcard{
-cursor:pointer;
-text-align:center;
-font-size:24px;
-font-weight:bold;
-padding:30px;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
 
-.quiz button{
-margin-top:10px;
-width:100%;
-padding:10px;
-cursor:pointer;
-}
+        .card {
+            background: var(--card);
+            padding: 35px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
 
-.result{
-margin-top:15px;
-font-weight:bold;
-}
+        /* --- CURSOS & PROGRESO --- */
+        .card h3 { font-size: 1.4rem; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+        .progress-container { margin-top: 20px; }
+        .progress-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; }
+        
+        .progress {
+            height: 10px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .progress div {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            border-radius: 20px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-.certificate{
-background:linear-gradient(135deg,#ffd700,#ffb700);
-padding:30px;
-border-radius:20px;
-text-align:center;
-color:#000;
-}
+        /* --- BANCO DE FLASHCARDS INTERACTIVAS --- */
+        .flashcard-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
 
-.premium{
-background:linear-gradient(135deg,#2563eb,#7c3aed);
-color:white;
-padding:30px;
-border-radius:20px;
-text-align:center;
-}
+        .flashcard-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 480px;
+            height: 240px;
+        }
 
-.toggle{
-position:fixed;
-top:15px;
-right:15px;
-padding:10px;
-cursor:pointer;
-border:none;
-border-radius:10px;
-}
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
 
-.whatsapp{
-position:fixed;
-right:20px;
-bottom:20px;
-width:60px;
-height:60px;
-background:#25D366;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-text-decoration:none;
-color:white;
-font-size:28px;
-}
+        .flashcard.flipped { transform: rotateY(180deg); }
 
-footer{
-text-align:center;
-padding:30px;
-}
-</style>
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--card);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            padding: 20px;
+        }
+
+        .card-front .word { font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; }
+        .card-back .word { font-size: 2.2rem; font-weight: 700; color: var(--primary); }
+        .card-hint { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        .card-back { transform: rotateY(180deg); background: linear-gradient(135deg, rgba(37,99,235,0.02), rgba(124,58,235,0.02)); }
+
+        .flash-controls { display: flex; gap: 15px; align-items: center; }
+        .btn-nav {
+            background: var(--card);
+            border: 1px solid var(--border);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: var(--transition);
+            color: var(--text);
+        }
+        .btn-nav:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        #flashIndex { font-weight: 600; color: var(--text-muted); font-size: 0.95rem; }
+
+        /* --- QUIZ AVANZADO --- */
+        .quiz { max-width: 650px; margin: 0 auto; }
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        #quizQuestion { font-size: 1.35rem; font-weight: 600; margin-bottom: 25px; }
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        
+        .quiz-options button {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            text-align: left;
+        }
+        .quiz-options button:hover { border-color: var(--primary); background: var(--card); transform: translateX(5px); }
+        
+        /* Estados de respuesta del Quiz */
+        .quiz-options button.correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; }
+        .quiz-options button.incorrect { background: var(--danger) !important; color: white !important; border-color: var(--danger) !important; }
+
+        .quiz-feedback { margin-top: 20px; padding: 15px; border-radius: 12px; font-weight: 600; text-align: center; display: none; }
+
+        /* --- CERTIFICADO DE EXCELENCIA --- */
+        .certificate-panel { max-width: 750px; margin: 0 auto; text-align: center; }
+        .input-group { display: flex; gap: 12px; justify-content: center; margin-bottom: 35px; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; }
+        
+        .certificate-panel input {
+            flex: 1;
+            padding: 14px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .certificate-panel input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
+        
+        .certificate-panel .btn-gen { padding: 14px 28px; background: var(--text); color: var(--card); border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .certificate-panel .btn-gen:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Lienzo del Certificado Institucional */
+        .certificate-box {
+            display: none;
+            background: #fffdf7;
+            border: 12px double #c5a059;
+            padding: 60px 40px;
+            border-radius: 8px;
+            color: #1e293b;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            position: relative;
+            text-align: center;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .certificate-box ::selection { background: rgba(197, 160, 89, 0.2); }
+
+        .cert-header { font-family: 'Times New Roman', Times, serif; font-size: 2.4rem; color: #9a732a; font-weight: 700; margin-bottom: 5px; }
+        .cert-sub { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: #64748b; font-weight: 600; margin-bottom: 35px; }
+        .cert-body { font-size: 1.1rem; color: #475569; font-weight: 300; line-height: 1.6; }
+        
+        #certName {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 25px auto;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 5px;
+            display: inline-block;
+            max-width: 90%;
+        }
+
+        .cert-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; padding: 0 30px; }
+        .cert-signature { text-align: center; width: 150px; }
+        .cert-signature .line { height: 1px; background: #cbd5e1; margin-bottom: 8px; }
+        .cert-signature p { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+
+        /* Medalla CSS */
+        .cert-badge {
+            width: 70px;
+            height: 70px;
+            background: #d4af37;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .cert-badge::before, .cert-badge::after {
+            content: ''; position: absolute; bottom: -15px; width: 20px; height: 40px; background: #b08d1a; z-index: -1;
+        }
+        .cert-badge::before { left: 12px; transform: rotate(15deg); }
+        .cert-badge::after { right: 12px; transform: rotate(-15deg); }
+
+        .cert-id { position: absolute; bottom: 15px; left: 40px; font-size: 0.75rem; color: #94a3b8; font-family: monospace; }
+
+        /* --- SECCIÓN PREMIUM --- */
+        .premium {
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            color: white;
+            padding: 60px 40px;
+            border-radius: 28px;
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.25);
+        }
+        .premium h2 { font-size: 2.6rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .premium .price { font-size: 1.9rem; font-weight: 700; color: #67e8f9; margin-bottom: 30px; }
+        .premium ul { list-style: none; display: inline-block; text-align: left; margin-bottom: 40px; }
+        .premium ul li { margin: 14px 0; font-size: 1.1rem; display: flex; align-items: center; gap: 12px; }
+
+        /* --- ACCESOS GENERALES --- */
+        .whatsapp {
+            position: fixed; right: 25px; bottom: 25px; width: 60px; height: 60px; background: #25D366; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; text-decoration: none; color: white; font-size: 28px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); z-index: 999; transition: var(--transition);
+        }
+        .whatsapp:hover { transform: scale(1.1) rotate(8deg); }
+
+        footer { text-align: center; padding: 40px 20px; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.9rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.4rem; }
+            section { padding: 60px 20px; }
+            .cert-footer { flex-direction: column; align-items: center; gap: 30px; }
+            .certificate-box { padding: 40px 20px; }
+            .input-group { flex-direction: column; border-radius: 0; }
+            .certificate-panel input { max-width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
-<button class="toggle" onclick="toggleDark()">🌙</button>
+    <button class="toggle" onclick="toggleDark()" id="darkModeBtn" aria-label="Modo de pantalla">🌙</button>
 
-<header>
-<h1>🌍 LinguaPro Academy</h1>
-<p>Aprende idiomas de forma práctica e interactiva.</p>
-<a href="#cursos" class="btn">Comenzar</a>
-<a href="https://wa.me/51999999999" class="btn">Clases Privadas</a>
-</header>
+    <!-- Header Principal -->
+    <header>
+        <h1>🌍 LinguaPro Academy</h1>
+        <p>Domina nuevos idiomas mediante dinámicas interactivas y un sistema adaptativo inteligente de aprendizaje diario.</p>
+        <a href="#cursos" class="btn">Mis Cursos</a>
+        <a href="https://wa.me/51999999999" class="btn btn-outline" target="_blank" rel="noopener">Clases Privadas de Altu Nivel</a>
+    </header>
 
-<section id="cursos">
+    <!-- Sección de Cursos y Avances -->
+    <section id="cursos">
+        <div class="title">
+            <h2>📚 Tus Programas de Estudio</h2>
+            <p>Monitorea y continúa con el progreso de tus módulos activos.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>🇺🇸 Inglés Global</h3>
+                <div class="progress-container">
+                    <div class="progress-info"><span>Módulos Avanzados</span><span>80%</span></div>
+                    <div class="progress"><div style="width:80%"></div></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>🇫🇷 Francés Fluido</h3>
+                <div class="progress-container">
+                    <div class="progress-info"><span>Módulos Avanzados</span><span>55%</span></div>
+                    <div class="progress"><div style="width:55%"></div></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>🇩🇪 Alemán Pro</h3>
+                <div class="progress-container">
+                    <div class="progress-info"><span>Módulos Avanzados</span><span>30%</span></div>
+                    <div class="progress"><div style="width:30%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="title">
-<h2>📚 Cursos</h2>
-</div>
+    <!-- Banco de Flashcards Autogestionable -->
+    <section>
+        <div class="title">
+            <h2>🎴 Flashcards de Vocabulario</h2>
+            <p>Haz clic sobre la tarjeta para revelar su traducción al instante.</p>
+        </div>
+        <div class="flashcard-area">
+            <div class="flashcard-wrapper">
+                <div class="flashcard" onclick="flipCard()" id="flashcardBox">
+                    <div class="card-front">
+                        <span class="card-hint" id="frontLang">🇺🇸 Inglés</span>
+                        <div class="word" id="frontWord">Apple</div>
+                    </div>
+                    <div class="card-back">
+                        <span class="card-hint">🇪🇸 Español</span>
+                        <div class="word" id="backWord">Manzana</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flash-controls">
+                <button class="btn-nav" onclick="prevCard()" aria-label="Anterior">⬅</button>
+                <span id="flashIndex">1 / 3</span>
+                <button class="btn-nav" onclick="nextCard()" aria-label="Siguiente">➡</button>
+            </div>
+        </div>
+    </section>
 
-<div class="grid">
+    <!-- Evaluador de Conocimiento (Quiz) -->
+    <section>
+        <div class="title">
+            <h2>📝 Desafío de Retención Curricular</h2>
+            <p>Pon a prueba tus conocimientos acumulados durante la semana.</p>
+        </div>
+        <div class="card quiz">
+            <div class="quiz-header">
+                <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-muted);" id="quizProgress">Pregunta 1 de 2</span>
+                <span style="font-weight: 700; font-size: 0.95rem; color: var(--primary);" id="quizScore">Score: 0 Pts</span>
+            </div>
+            <div id="quizQuestion">¿Cómo se dice "Gracias" en inglés?</div>
+            <div class="quiz-options" id="quizOptionsArea">
+                <!-- Los botones se inyectan dinámicamente para soportar múltiples preguntas -->
+            </div>
+            <div class="quiz-feedback" id="quizFeedbackBox"></div>
+        </div>
+    </section>
 
-<div class="card">
-<h3>🇺🇸 Inglés</h3>
-<div class="progress">
-<div style="width:80%"></div>
-</div>
-<p>80% completado</p>
-</div>
+    <!-- Generador de Diplomas Oficiales -->
+    <section>
+        <div class="title">
+            <h2>🏆 Certificaciones de Aprobación</h2>
+            <p>Genera y valida tus certificados institucionales ingresando tu identidad académica.</p>
+        </div>
+        <div class="card certificate-panel">
+            <div class="input-group">
+                <input id="studentName" placeholder="Escribe tu Nombre y Apellido">
+                <button class="btn-gen" onclick="generateCertificate()">Emitir Certificado</button>
+            </div>
+            
+            <div class="certificate-box" id="certBox">
+                <div class="cert-header">Certificado de Excelencia</div>
+                <div class="cert-sub">LinguaPro International Academy</div>
+                <p class="cert-body">Por cuanto se hace constar que el alumno de nuestra institución de formación internacional</p>
+                <div id="certName">Juan Pérez</div>
+                <p class="cert-body">Ha acreditado satisfactoriamente los exámenes de suficiencia del programa multilingüe de nuestra academia, demostrando competencias avanzadas de comunicación global.</p>
+                
+                <div class="cert-footer">
+                    <div class="cert-signature">
+                        <div class="line"></div>
+                        <p>Dirección Académica</p>
+                    </div>
+                    <div class="cert-badge"></div>
+                    <div class="cert-signature">
+                        <div class="line"></div>
+                        <p>Registro y Control</p>
+                    </div>
+                </div>
+                <div class="cert-id" id="certSerial">ID VERIFICACIÓN: LP-849204-2026</div>
+            </div>
+        </div>
+    </section>
 
-<div class="card">
-<h3>🇫🇷 Francés</h3>
-<div class="progress">
-<div style="width:55%"></div>
-</div>
-<p>55% completado</p>
-</div>
+    <!-- Panel de Suscripción Premium -->
+    <section>
+        <div class="premium">
+            <h2>Membresía Global Premium</h2>
+            <div class="price">S/10 Mensuales</div>
+            <ul>
+                <li>✔ Acceso ilimitado a la totalidad del catálogo idiomático</li>
+                <li>✔ Recursos auditivos en alta fidelidad y laboratorios nativos</li>
+                <li>✔ Certificaciones de validez curricular verificables sin costo adicional</li>
+                <li>✔ Sesiones y tutorías personalizadas semanales con docentes certificados</li>
+            </ul>
+            <br>
+            <a href="https://wa.me/51999999999" class="btn" style="box-shadow: none;" target="_blank" rel="noopener">
+                Solicitar Alta de Suscripción
+            </a>
+        </div>
+    </section>
 
-<div class="card">
-<h3>🇩🇪 Alemán</h3>
-<div class="progress">
-<div style="width:30%"></div>
-</div>
-<p>30% completado</p>
-</div>
+    <footer>
+        &copy; 2026 LinguaPro Academy. Impulsando la competencia intercultural y global.
+    </footer>
 
-</div>
+    <!-- Acceso Directo Flotante -->
+    <a class="whatsapp" href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="Canal directo de Soporte Técnico">💬</a>
 
-</section>
+    <script>
+        // --- PERSISTENCIA Y MODO OSCURO ---
+        function toggleDark() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            document.getElementById('darkModeBtn').innerHTML = isDark ? '☀️' : '🌙';
+        }
 
-<section>
+        // --- BANCO DE DATOS DE FLASHCARDS ---
+        const flashcardsData = [
+            { front: "Apple", back: "Manzana", lang: "🇺🇸 Inglés" },
+            { front: "Thank you", back: "Gracias", lang: "🇺🇸 Inglés" },
+            { front: "Bonjour", back: "Buenos días", lang: "🇫🇷 Francés" }
+        ];
+        let currentFlashIndex = 0;
 
-<div class="title">
-<h2>🎴 Flashcards</h2>
-</div>
+        function updateFlashcardUI() {
+            const cardBox = document.getElementById('flashcardBox');
+            cardBox.classList.remove('flipped');
+            
+            setTimeout(() => {
+                document.getElementById('frontLang').innerText = flashcardsData[currentFlashIndex].lang;
+                document.getElementById('frontWord').innerText = flashcardsData[currentFlashIndex].front;
+                document.getElementById('backWord').innerText = flashcardsData[currentFlashIndex].back;
+                document.getElementById('flashIndex').innerText = `${currentFlashIndex + 1} / ${flashcardsData.length}`;
+            }, cardBox.classList.contains('flipped') ? 300 : 0);
+        }
 
-<div class="card flashcard" onclick="flipCard(this)"
-data-front="🇺🇸 Apple"
-data-back="🇪🇸 Manzana">
+        function flipCard() {
+            document.getElementById('flashcardBox').classList.toggle('flipped');
+        }
 
-🇺🇸 Apple
+        function nextCard() {
+            currentFlashIndex = (currentFlashIndex + 1) % flashcardsData.length;
+            updateFlashcardUI();
+        }
 
-</div>
+        function prevCard() {
+            currentFlashIndex = (currentFlashIndex - 1 + flashcardsData.length) % flashcardsData.length;
+            updateFlashcardUI();
+        }
 
-</section>
+        // --- SISTEMA DE QUIZ CON MÚLTIPLES PREGUNTAS ---
+        const quizData = [
+            {
+                q: "¿Cómo se dice 'Gracias' en inglés?",
+                options: ["Hello", "Thank You", "Goodbye"],
+                correct: 1
+            },
+            {
+                q: "¿Qué significa 'Bonjour' en francés?",
+                options: ["Adiós", "Por favor", "Buenos días / Hola"],
+                correct: 2
+            }
+        ];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let quizAnswered = false;
 
-<section>
+        function loadQuizQuestion() {
+            quizAnswered = false;
+            const currentData = quizData[currentQuestionIndex];
+            document.getElementById('quizProgress').innerText = `Pregunta ${currentQuestionIndex + 1} de ${quizData.length}`;
+            document.getElementById('quizQuestion').innerText = currentData.q;
+            
+            const optionsArea = document.getElementById('quizOptionsArea');
+            optionsArea.innerHTML = "";
+            
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            feedbackBox.style.display = "none";
 
-<div class="title">
-<h2>📝 Quiz</h2>
-</div>
+            currentData.options.forEach((option, idx) => {
+                const btn = document.createElement('button');
+                btn.innerText = option;
+                btn.onclick = () => evaluateAnswer(idx, btn);
+                optionsArea.appendChild(btn);
+            });
+        }
 
-<div class="card quiz">
+        function evaluateAnswer(selectedIdx, selectedButton) {
+            if (quizAnswered) return; // Evita doble selección
+            quizAnswered = true;
 
-<h3>¿Cómo se dice "Gracias" en inglés?</h3>
+            const currentData = quizData[currentQuestionIndex];
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            const optionsButtons = document.getElementById('quizOptionsArea').children;
 
-<button onclick="checkAnswer(false)">Hello</button>
-<button onclick="checkAnswer(true)">Thank You</button>
-<button onclick="checkAnswer(false)">Goodbye</button>
+            if (selectedIdx === currentData.correct) {
+                selectedButton.classList.add('correct');
+                score += 10;
+                document.getElementById('quizScore').innerText = `Score: ${score} Pts`;
+                feedbackBox.innerHTML = "✅ ¡Excelente! Respuesta totalmente correcta.";
+                feedbackBox.className = "quiz-feedback success";
+            } else {
+                selectedButton.classList.add('incorrect');
+                optionsButtons[currentData.correct].classList.add('correct');
+                feedbackBox.innerHTML = "❌ Respuesta incorrecta. Sigue practicando.";
+                feedbackBox.className = "quiz-feedback error";
+            }
+            feedbackBox.style.display = "block";
 
-<div class="result" id="quizResult"></div>
+            // Avanzar automáticamente a la siguiente pregunta si existe
+            setTimeout(() => {
+                if (currentQuestionIndex + 1 < quizData.length) {
+                    currentQuestionIndex++;
+                    loadQuizQuestion();
+                } else {
+                    feedbackBox.innerHTML = `🎉 ¡Quiz Completado! Tu puntaje final fue de ${score} Pts.`;
+                    feedbackBox.className = "quiz-feedback success";
+                    feedbackBox.style.display = "block";
+                }
+            }, 2500);
+        }
 
-</div>
+        // --- EMISIÓN DE CERTIFICADOS CON ID ÚNICO ---
+        function generateCertificate() {
+            const nameInput = document.getElementById('studentName').value.trim();
+            const certBox = document.getElementById('certBox');
+            const certName = document.getElementById('certName');
+            const certSerial = document.getElementById('certSerial');
 
-</section>
+            if (nameInput === "") {
+                alert("Por favor, ingrese un nombre y apellido válido para emitir el diploma corporativo.");
+                return;
+            }
 
-<section>
+            // Generador aleatorio de código de serie único
+            const randomSerial = Math.floor(100000 + Math.random() * 900000);
+            
+            certName.innerText = nameInput;
+            certSerial.innerText = `ID DE VERIFICACIÓN AUTÉNTICA: LP-${randomSerial}-2026`;
+            certBox.style.display = "block";
+            
+            certBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
 
-<div class="title">
-<h2>🏆 Certificado</h2>
-</div>
-
-<div class="certificate">
-
-<h2>Certificado de Participación</h2>
-
-<p>Este certificado reconoce la finalización del curso.</p>
-
-<br>
-
-<input id="studentName"
-placeholder="Escribe tu nombre"
-style="padding:10px;width:250px;">
-
-<br><br>
-
-<button onclick="generateCertificate()">
-Generar Certificado
-</button>
-
-<h3 id="certName"></h3>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="title">
-<h2>💎 Premium</h2>
-</div>
-
-<div class="premium">
-
-<h2>S/10 Mensuales</h2>
-
-<p>
-✔ Todos los cursos<br>
-✔ Audios exclusivos<br>
-✔ Certificados<br>
-✔ Tutorías personalizadas
-</p>
-
-<br>
-
-<a href="https://wa.me/51999999999"
-style="background:white;color:#2563eb;padding:12px 20px;border-radius:20px;text-decoration:none;font-weight:bold;">
-
-Solicitar Premium
-
-</a>
-
-</div>
-
-</section>
-
-<footer>
-© 2026 LinguaPro Academy
-</footer>
-
-<a class="whatsapp"
-href="https://wa.me/51999999999">
-💬
-</a>
-
-<script>
-
-function toggleDark(){
-document.body.classList.toggle('dark');
-}
-
-function flipCard(card){
-
-if(card.innerHTML.trim()===card.dataset.front){
-card.innerHTML=card.dataset.back;
-}else{
-card.innerHTML=card.dataset.front;
-}
-
-}
-
-function checkAnswer(correct){
-
-const result=document.getElementById('quizResult');
-
-if(correct){
-result.innerHTML="✅ Correcto";
-}else{
-result.innerHTML="❌ Incorrecto";
-}
-
-}
-
-function generateCertificate(){
-
-const name=document.getElementById('studentName').value;
-
-document.getElementById('certName').innerHTML=
-"Otorgado a: <br><br><strong>"+name+"</strong>";
-
-}
-
-</script>
-
+        // Inicialización de componentes al cargar la ventana
+        window.onload = () => {
+            updateFlashcardUI();
+            loadQuizQuestion();
+        };
+    </script>
 </body>
 </html>
