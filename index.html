@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinguaPro Academy | Plataforma de Idiomas de Vanguardia</title>
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -15,20 +16,24 @@
             --bg: #f8fafc;
             --card: #ffffff;
             --text: #0f172a;
+            --text-title: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
             --success: #16a34a;
             --danger: #dc2626;
             --radius: 20px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 30px rgba(0,0,0,0.02);
         }
 
-        .dark {
+        body.dark {
             --bg: #0f172a;
             --card: #1e293b;
             --text: #f8fafc;
+            --text-title: #ffffff;
             --text-muted: #94a3b8;
             --border: #334155;
+            --shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
         * {
@@ -41,7 +46,7 @@
         body {
             background: var(--bg);
             color: var(--text);
-            transition: var(--transition);
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
             overflow-x: hidden;
         }
 
@@ -63,6 +68,7 @@
             font-size: 1.2rem;
             z-index: 1000;
             transition: var(--transition);
+            color: var(--text);
         }
         .toggle:hover { transform: scale(1.1); }
 
@@ -128,7 +134,7 @@
         }
 
         .title { text-align: center; margin-bottom: 50px; }
-        .title h2 { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; }
+        .title h2 { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; color: var(--text-title); }
         .title p { color: var(--text-muted); margin-top: 5px; }
 
         .grid {
@@ -141,7 +147,7 @@
             background: var(--card);
             padding: 35px;
             border-radius: var(--radius);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            box-shadow: var(--shadow);
             border: 1px solid var(--border);
             transition: var(--transition);
         }
@@ -151,7 +157,7 @@
         }
 
         /* --- CURSOS & PROGRESO --- */
-        .card h3 { font-size: 1.4rem; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+        .card h3 { font-size: 1.4rem; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; color: var(--text-title); }
         .progress-container { margin-top: 20px; }
         .progress-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; }
         
@@ -189,7 +195,7 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
         }
 
@@ -208,15 +214,15 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--card);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            box-shadow: var(--shadow);
             padding: 20px;
         }
 
-        .card-front .word { font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; }
+        .card-front .word { font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; color: var(--text-title); }
         .card-back .word { font-size: 2.2rem; font-weight: 700; color: var(--primary); }
         .card-hint { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-        .card-back { transform: rotateY(180deg); background: linear-gradient(135deg, rgba(37,99,235,0.02), rgba(124,58,235,0.02)); }
+        .card-back { transform: rotateY(180deg); background: var(--card); }
 
         .flash-controls { display: flex; gap: 15px; align-items: center; }
         .btn-nav {
@@ -230,7 +236,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            box-shadow: var(--shadow);
             transition: var(--transition);
             color: var(--text);
         }
@@ -240,7 +246,7 @@
         /* --- QUIZ AVANZADO --- */
         .quiz { max-width: 650px; margin: 0 auto; }
         .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        #quizQuestion { font-size: 1.35rem; font-weight: 600; margin-bottom: 25px; }
+        #quizQuestion { font-size: 1.35rem; font-weight: 600; margin-bottom: 25px; color: var(--text-title); }
         .quiz-options { display: flex; flex-direction: column; gap: 12px; }
         
         .quiz-options button {
@@ -256,13 +262,14 @@
             transition: var(--transition);
             text-align: left;
         }
-        .quiz-options button:hover { border-color: var(--primary); background: var(--card); transform: translateX(5px); }
+        .quiz-options button:hover:not(:disabled) { border-color: var(--primary); background: var(--card); transform: translateX(5px); }
         
-        /* Estados de respuesta del Quiz */
         .quiz-options button.correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; }
         .quiz-options button.incorrect { background: var(--danger) !important; color: white !important; border-color: var(--danger) !important; }
 
-        .quiz-feedback { margin-top: 20px; padding: 15px; border-radius: 12px; font-weight: 600; text-align: center; display: none; }
+        .quiz-feedback { margin-top: 20px; padding: 18px; border-radius: 14px; font-weight: 600; text-align: center; display: none; }
+        .quiz-feedback.success { background: rgba(22, 163, 74, 0.1); color: var(--success); }
+        .quiz-feedback.danger { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
 
         /* --- CERTIFICADO DE EXCELENCIA --- */
         .certificate-panel { max-width: 750px; margin: 0 auto; text-align: center; }
@@ -281,10 +288,10 @@
         }
         .certificate-panel input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
         
-        .certificate-panel .btn-gen { padding: 14px 28px; background: var(--text); color: var(--card); border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: var(--transition); }
-        .certificate-panel .btn-gen:hover { opacity: 0.9; transform: translateY(-1px); }
+        .certificate-panel .btn-gen { padding: 14px 28px; background: var(--primary); color: white; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .certificate-panel .btn-gen:hover { background: var(--primary-hover); transform: translateY(-1px); }
 
-        /* Lienzo del Certificado Institucional */
+        /* Lienzo del Certificado */
         .certificate-box {
             display: none;
             background: #fffdf7;
@@ -297,8 +304,6 @@
             text-align: center;
             animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
-        .certificate-box ::selection { background: rgba(197, 160, 89, 0.2); }
 
         .cert-header { font-family: 'Times New Roman', Times, serif; font-size: 2.4rem; color: #9a732a; font-weight: 700; margin-bottom: 5px; }
         .cert-sub { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: #64748b; font-weight: 600; margin-bottom: 35px; }
@@ -320,7 +325,6 @@
         .cert-signature .line { height: 1px; background: #cbd5e1; margin-bottom: 8px; }
         .cert-signature p { font-size: 0.8rem; color: #64748b; font-weight: 500; }
 
-        /* Medalla CSS */
         .cert-badge {
             width: 70px;
             height: 70px;
@@ -348,7 +352,7 @@
             margin: 0 auto;
             box-shadow: 0 25px 50px rgba(37, 99, 235, 0.25);
         }
-        .premium h2 { font-size: 2.6rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .premium h2 { font-size: 2.6rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; color: #fff; }
         .premium .price { font-size: 1.9rem; font-weight: 700; color: #67e8f9; margin-bottom: 30px; }
         .premium ul { list-style: none; display: inline-block; text-align: left; margin-bottom: 40px; }
         .premium ul li { margin: 14px 0; font-size: 1.1rem; display: flex; align-items: center; gap: 12px; }
@@ -361,7 +365,7 @@
         }
         .whatsapp:hover { transform: scale(1.1) rotate(8deg); }
 
-        footer { text-align: center; padding: 40px 20px; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.9rem; }
+        footer { text-align: center; padding: 40px 20px; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.9rem; margin-top: 60px;}
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -370,8 +374,9 @@
             section { padding: 60px 20px; }
             .cert-footer { flex-direction: column; align-items: center; gap: 30px; }
             .certificate-box { padding: 40px 20px; }
-            .input-group { flex-direction: column; border-radius: 0; }
-            .certificate-panel input { max-width: 100%; }
+            .input-group { flex-direction: column; }
+            .certificate-panel input { max-width: 100%; width: 100%; }
+            .certificate-panel .btn-gen { width: 100%; }
         }
     </style>
 </head>
@@ -379,15 +384,13 @@
 
     <button class="toggle" onclick="toggleDark()" id="darkModeBtn" aria-label="Modo de pantalla">🌙</button>
 
-    <!-- Header Principal -->
     <header>
         <h1>🌍 LinguaPro Academy</h1>
         <p>Domina nuevos idiomas mediante dinámicas interactivas y un sistema adaptativo inteligente de aprendizaje diario.</p>
         <a href="#cursos" class="btn">Mis Cursos</a>
-        <a href="https://wa.me/51999999999" class="btn btn-outline" target="_blank" rel="noopener">Clases Privadas de Altu Nivel</a>
+        <a href="https://wa.me/51999999999" class="btn btn-outline" target="_blank" rel="noopener">Clases Privadas de Alto Nivel</a>
     </header>
 
-    <!-- Sección de Cursos y Avances -->
     <section id="cursos">
         <div class="title">
             <h2>📚 Tus Programas de Estudio</h2>
@@ -418,7 +421,6 @@
         </div>
     </section>
 
-    <!-- Banco de Flashcards Autogestionable -->
     <section>
         <div class="title">
             <h2>🎴 Flashcards de Vocabulario</h2>
@@ -445,7 +447,6 @@
         </div>
     </section>
 
-    <!-- Evaluador de Conocimiento (Quiz) -->
     <section>
         <div class="title">
             <h2>📝 Desafío de Retención Curricular</h2>
@@ -456,15 +457,12 @@
                 <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-muted);" id="quizProgress">Pregunta 1 de 2</span>
                 <span style="font-weight: 700; font-size: 0.95rem; color: var(--primary);" id="quizScore">Score: 0 Pts</span>
             </div>
-            <div id="quizQuestion">¿Cómo se dice "Gracias" en inglés?</div>
-            <div class="quiz-options" id="quizOptionsArea">
-                <!-- Los botones se inyectan dinámicamente para soportar múltiples preguntas -->
-            </div>
+            <div id="quizQuestion">Cargando desafío...</div>
+            <div class="quiz-options" id="quizOptionsArea"></div>
             <div class="quiz-feedback" id="quizFeedbackBox"></div>
         </div>
     </section>
 
-    <!-- Generador de Diplomas Oficiales -->
     <section>
         <div class="title">
             <h2>🏆 Certificaciones de Aprobación</h2>
@@ -480,7 +478,7 @@
                 <div class="cert-header">Certificado de Excelencia</div>
                 <div class="cert-sub">LinguaPro International Academy</div>
                 <p class="cert-body">Por cuanto se hace constar que el alumno de nuestra institución de formación internacional</p>
-                <div id="certName">Juan Pérez</div>
+                <div id="certName">-</div>
                 <p class="cert-body">Ha acreditado satisfactoriamente los exámenes de suficiencia del programa multilingüe de nuestra academia, demostrando competencias avanzadas de comunicación global.</p>
                 
                 <div class="cert-footer">
@@ -494,12 +492,11 @@
                         <p>Registro y Control</p>
                     </div>
                 </div>
-                <div class="cert-id" id="certSerial">ID VERIFICACIÓN: LP-849204-2026</div>
+                <div class="cert-id" id="certSerial">ID VERIFICACIÓN: LP-000000-2026</div>
             </div>
         </div>
     </section>
 
-    <!-- Panel de Suscripción Premium -->
     <section>
         <div class="premium">
             <h2>Membresía Global Premium</h2>
@@ -521,8 +518,9 @@
         &copy; 2026 LinguaPro Academy. Impulsando la competencia intercultural y global.
     </footer>
 
-    <!-- Acceso Directo Flotante -->
-    <a class="whatsapp" href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="Canal directo de Soporte Técnico">💬</a>
+    <a class="whatsapp" href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="Canal directo de Soporte Técnico">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <script>
         // --- PERSISTENCIA Y MODO OSCURO ---
@@ -530,6 +528,23 @@
             document.body.classList.toggle('dark');
             const isDark = document.body.classList.contains('dark');
             document.getElementById('darkModeBtn').innerHTML = isDark ? '☀️' : '🌙';
+            try {
+                localStorage.setItem('lingua_theme', isDark ? 'dark' : 'light');
+            } catch (e) {
+                console.warn("Storage inaccesible");
+            }
+        }
+
+        function loadSavedTheme() {
+            try {
+                const savedTheme = localStorage.getItem('lingua_theme');
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark');
+                    document.getElementById('darkModeBtn').innerHTML = '☀️';
+                }
+            } catch (e) {
+                console.warn("Storage inaccesible");
+            }
         }
 
         // --- BANCO DE DATOS DE FLASHCARDS ---
@@ -539,34 +554,49 @@
             { front: "Bonjour", back: "Buenos días", lang: "🇫🇷 Francés" }
         ];
         let currentFlashIndex = 0;
+        let isTransitioning = false;
 
         function updateFlashcardUI() {
-            const cardBox = document.getElementById('flashcardBox');
-            cardBox.classList.remove('flipped');
-            
-            setTimeout(() => {
-                document.getElementById('frontLang').innerText = flashcardsData[currentFlashIndex].lang;
-                document.getElementById('frontWord').innerText = flashcardsData[currentFlashIndex].front;
-                document.getElementById('backWord').innerText = flashcardsData[currentFlashIndex].back;
-                document.getElementById('flashIndex').innerText = `${currentFlashIndex + 1} / ${flashcardsData.length}`;
-            }, cardBox.classList.contains('flipped') ? 300 : 0);
+            document.getElementById('frontLang').innerText = flashcardsData[currentFlashIndex].lang;
+            document.getElementById('frontWord').innerText = flashcardsData[currentFlashIndex].front;
+            document.getElementById('backWord').innerText = flashcardsData[currentFlashIndex].back;
+            document.getElementById('flashIndex').innerText = `${currentFlashIndex + 1} / ${flashcardsData.length}`;
         }
 
         function flipCard() {
+            if (isTransitioning) return;
             document.getElementById('flashcardBox').classList.toggle('flipped');
         }
 
+        function handleCardNavigation(nextIndexAction) {
+            const cardBox = document.getElementById('flashcardBox');
+            if (cardBox.classList.contains('flipped')) {
+                isTransitioning = true;
+                cardBox.classList.remove('flipped');
+                setTimeout(() => {
+                    nextIndexAction();
+                    updateFlashcardUI();
+                    isTransitioning = false;
+                }, 2500); // Espera que la tarjeta se voltee por completo antes de cambiar los textos
+            } else {
+                nextIndexAction();
+                updateFlashcardUI();
+            }
+        }
+
         function nextCard() {
-            currentFlashIndex = (currentFlashIndex + 1) % flashcardsData.length;
-            updateFlashcardUI();
+            handleCardNavigation(() => {
+                currentFlashIndex = (currentFlashIndex + 1) % flashcardsData.length;
+            });
         }
 
         function prevCard() {
-            currentFlashIndex = (currentFlashIndex - 1 + flashcardsData.length) % flashcardsData.length;
-            updateFlashcardUI();
+            handleCardNavigation(() => {
+                currentFlashIndex = (currentFlashIndex - 1 + flashcardsData.length) % flashcardsData.length;
+            });
         }
 
-        // --- SISTEMA DE QUIZ CON MÚLTIPLES PREGUNTAS ---
+        // --- SISTEMA DE QUIZ ---
         const quizData = [
             {
                 q: "¿Cómo se dice 'Gracias' en inglés?",
@@ -604,12 +634,15 @@
         }
 
         function evaluateAnswer(selectedIdx, selectedButton) {
-            if (quizAnswered) return; // Evita doble selección
+            if (quizAnswered) return;
             quizAnswered = true;
 
             const currentData = quizData[currentQuestionIndex];
             const feedbackBox = document.getElementById('quizFeedbackBox');
             const optionsButtons = document.getElementById('quizOptionsArea').children;
+
+            // Bloquear todos los botones del set actual
+            Array.from(optionsButtons).forEach(btn => btn.disabled = true);
 
             if (selectedIdx === currentData.correct) {
                 selectedButton.classList.add('correct');
@@ -621,24 +654,46 @@
                 selectedButton.classList.add('incorrect');
                 optionsButtons[currentData.correct].classList.add('correct');
                 feedbackBox.innerHTML = "❌ Respuesta incorrecta. Sigue practicando.";
-                feedbackBox.className = "quiz-feedback error";
+                feedbackBox.className = "quiz-feedback danger";
             }
             feedbackBox.style.display = "block";
 
-            // Avanzar automáticamente a la siguiente pregunta si existe
             setTimeout(() => {
                 if (currentQuestionIndex + 1 < quizData.length) {
                     currentQuestionIndex++;
                     loadQuizQuestion();
                 } else {
-                    feedbackBox.innerHTML = `🎉 ¡Quiz Completado! Tu puntaje final fue de ${score} Pts.`;
-                    feedbackBox.className = "quiz-feedback success";
-                    feedbackBox.style.display = "block";
+                    renderQuizSummary();
                 }
-            }, 2500);
+            }, 2000);
         }
 
-        // --- EMISIÓN DE CERTIFICADOS CON ID ÚNICO ---
+        function renderQuizSummary() {
+            const optionsArea = document.getElementById('quizOptionsArea');
+            optionsArea.innerHTML = "";
+            
+            document.getElementById('quizQuestion').innerText = "¡Desafío completado!";
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            feedbackBox.innerHTML = `🎉 Tu puntaje final fue de ${score} Pts de ${quizData.length * 10} posibles.`;
+            feedbackBox.className = "quiz-feedback success";
+            feedbackBox.style.display = "block";
+
+            const restartBtn = document.createElement('button');
+            restartBtn.innerText = "Reiniciar Desafío";
+            restartBtn.style.marginTop = "20px";
+            restartBtn.style.textAlign = "center";
+            restartBtn.onclick = resetQuiz;
+            optionsArea.appendChild(restartBtn);
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('quizScore').innerText = `Score: 0 Pts`;
+            loadQuizQuestion();
+        }
+
+        // --- EMISIÓN DE CERTIFICADOS ---
         function generateCertificate() {
             const nameInput = document.getElementById('studentName').value.trim();
             const certBox = document.getElementById('certBox');
@@ -646,22 +701,24 @@
             const certSerial = document.getElementById('certSerial');
 
             if (nameInput === "") {
-                alert("Por favor, ingrese un nombre y apellido válido para emitir el diploma corporativo.");
+                alert("Por favor, ingrese un nombre y apellido válido para emitir el diploma.");
                 return;
             }
 
-            // Generador aleatorio de código de serie único
             const randomSerial = Math.floor(100000 + Math.random() * 900000);
             
             certName.innerText = nameInput;
             certSerial.innerText = `ID DE VERIFICACIÓN AUTÉNTICA: LP-${randomSerial}-2026`;
             certBox.style.display = "block";
             
-            certBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            setTimeout(() => {
+                certBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
         }
 
-        // Inicialización de componentes al cargar la ventana
+        // Carga inicial al inicializar el DOM
         window.onload = () => {
+            loadSavedTheme();
             updateFlashcardUI();
             loadQuizQuestion();
         };
