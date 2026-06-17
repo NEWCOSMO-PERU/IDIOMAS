@@ -577,7 +577,7 @@
                     nextIndexAction();
                     updateFlashcardUI();
                     isTransitioning = false;
-                }, 2500); // Espera que la tarjeta se voltee por completo antes de cambiar los textos
+                }, 300); // Sincronizado con la mitad del efecto CSS 3D backface
             } else {
                 nextIndexAction();
                 updateFlashcardUI();
@@ -641,7 +641,6 @@
             const feedbackBox = document.getElementById('quizFeedbackBox');
             const optionsButtons = document.getElementById('quizOptionsArea').children;
 
-            // Bloquear todos los botones del set actual
             Array.from(optionsButtons).forEach(btn => btn.disabled = true);
 
             if (selectedIdx === currentData.correct) {
@@ -716,7 +715,6 @@
             }, 100);
         }
 
-        // Carga inicial al inicializar el DOM
         window.onload = () => {
             loadSavedTheme();
             updateFlashcardUI();
