@@ -1,3 +1,989 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaPro Academy | Plataforma de Idiomas de Vanguardia</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: rgba(79, 70, 229, 0.1);
+            --purple: #9333ea;
+            --pink: #ec4899;
+            --bg: #090d16;
+            --card: rgba(30, 41, 59, 0.7);
+            --card-solid: #1e293b;
+            --text: #f8fafc;
+            --text-title: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(79, 70, 229, 0.5);
+            --success: #10b981;
+            --danger: #f43f5e;
+            --radius: 24px;
+            --radius-sm: 14px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 30px rgba(79, 70, 229, 0.2);
+        }
+
+        body.light {
+            --bg: #f8fafc;
+            --card: rgba(255, 255, 255, 0.85);
+            --card-solid: #ffffff;
+            --text: #0f172a;
+            --text-title: #0f172a;
+            --text-muted: #64748b;
+            --border: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(79, 70, 229, 0.4);
+            --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+            --glow: 0 0 30px rgba(79, 70, 229, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- SPLASH SCREEN DE CARGA --- */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #090d16;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #splashScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            animation: pulseSplash 2s infinite ease-in-out;
+        }
+
+        .splash-logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            border-radius: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 0 40px rgba(79, 70, 229, 0.6);
+        }
+
+        .splash-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -1px;
+        }
+
+        .splash-title span {
+            background: linear-gradient(135deg, var(--primary), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .splash-loader {
+            width: 160px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .splash-loader::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--pink), transparent);
+            animation: loadingBar 1.5s infinite linear;
+        }
+
+        @keyframes loadingBar {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes pulseSplash {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(147, 51, 234, 0.15));
+            filter: blur(120px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- BARRA DE NAVEGACIÓN SUPERIOR FLOTANTE --- */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1140px;
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-brand {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--text-title);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toggle {
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: var(--card-solid);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            color: var(--text);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .toggle:hover { transform: scale(1.1) rotate(15deg); border-color: var(--primary); }
+
+        /* --- HERO HEADER --- */
+        header {
+            padding: 180px 20px 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: var(--primary-light);
+            border: 1px solid var(--border-hover);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        header h1 {
+            font-size: clamp(2.8rem, 5vw, 4.8rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            color: var(--text-title);
+            line-height: 1.1;
+        }
+
+        header h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            margin-bottom: 45px;
+            color: var(--text-muted);
+            font-weight: 400;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 36px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.6);
+            background: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-title);
+            border: 1px solid var(--border);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover { 
+            background: var(--card-solid); 
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        /* --- CONTENEDORES Y SECCIONES --- */
+        section {
+            max-width: 1140px;
+            margin: auto;
+            padding: 60px 20px;
+        }
+
+        .title { text-align: center; margin-bottom: 55px; }
+        .title h2 { font-size: 2.4rem; font-weight: 800; letter-spacing: -1px; color: var(--text-title); margin-bottom: 10px; }
+        .title p { color: var(--text-muted); font-size: 1.05rem; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 35px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--purple));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-hover);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        /* --- CURSOS & PROGRESO --- */
+        .card h3 { font-size: 1.35rem; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; color: var(--text-title); font-weight: 700; }
+        .progress-container { margin-top: 15px; }
+        .progress-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); }
+        
+        .progress {
+            height: 10px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress div {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--purple));
+            border-radius: 20px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- BANCO DE FLASHCARDS INTERACTIVAS --- */
+        .flashcard-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .flashcard-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 520px;
+            height: 260px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .flashcard.flipped { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+
+        .card-front .word { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; color: var(--text-title); }
+        .card-back .word { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card-hint { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        .card-back { transform: rotateY(180deg); }
+
+        .flash-controls { display: flex; gap: 20px; align-items: center; }
+        .btn-nav {
+            background: var(--card-solid);
+            border: 1px solid var(--border);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            color: var(--text-title);
+        }
+        .btn-nav:hover { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.08); }
+        #flashIndex { font-weight: 700; color: var(--text-muted); font-size: 1rem; }
+
+        /* --- QUIZ AVANZADO --- */
+        .quiz { max-width: 680px; margin: 0 auto; }
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        #quizQuestion { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; color: var(--text-title); line-height: 1.5; }
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        
+        .quiz-options button {
+            width: 100%;
+            padding: 18px 22px;
+            background: var(--card-solid);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .quiz-options button:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); transform: translateX(6px); }
+        
+        .quiz-options button.correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); }
+        .quiz-options button.incorrect { background: var(--danger) !important; color: white !important; border-color: var(--danger) !important; box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3); }
+
+        .quiz-feedback { margin-top: 20px; padding: 18px; border-radius: var(--radius-sm); font-weight: 600; text-align: center; display: none; animation: fadeIn 0.4s ease; }
+        .quiz-feedback.success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .quiz-feedback.danger { background: rgba(244, 63, 94, 0.15); color: var(--danger); border: 1px solid rgba(244, 63, 94, 0.3); }
+
+        /* --- CERTIFICADO DE EXCELENCIA --- */
+        .certificate-panel { max-width: 800px; margin: 0 auto; text-align: center; }
+        .input-group { display: flex; gap: 12px; justify-content: center; margin-bottom: 35px; width: 100%; max-width: 520px; margin-left: auto; margin-right: auto; }
+        
+        .certificate-panel input {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--card-solid);
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .certificate-panel input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+        
+        .certificate-panel .btn-gen { padding: 16px 30px; background: var(--primary); color: white; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; transition: var(--transition); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); }
+        .certificate-panel .btn-gen:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        /* Lienzo del Certificado Premium */
+        .certificate-box {
+            display: none;
+            background: #fffdf7;
+            border: 14px double #c5a059;
+            padding: 60px 50px;
+            border-radius: 12px;
+            color: #1e293b;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            position: relative;
+            text-align: center;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            margin-top: 30px;
+        }
+
+        .cert-header { font-family: 'Times New Roman', Times, serif; font-size: 2.6rem; color: #9a732a; font-weight: 700; margin-bottom: 5px; }
+        .cert-sub { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 4px; color: #64748b; font-weight: 700; margin-bottom: 35px; }
+        .cert-body { font-size: 1.15rem; color: #475569; font-weight: 300; line-height: 1.7; }
+        
+        #certName {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 25px auto;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 8px;
+            display: inline-block;
+            max-width: 90%;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .cert-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; padding: 0 20px; }
+        .cert-signature { text-align: center; width: 160px; }
+        .cert-signature .line { height: 1px; background: #94a3b8; margin-bottom: 8px; }
+        .cert-signature p { font-size: 0.8rem; color: #64748b; font-weight: 600; }
+
+        .cert-badge {
+            width: 75px;
+            height: 75px;
+            background: #d4af37;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+        }
+        .cert-badge::before, .cert-badge::after {
+            content: ''; position: absolute; bottom: -18px; width: 22px; height: 45px; background: #b08d1a; z-index: -1;
+        }
+        .cert-badge::before { left: 10px; transform: rotate(15deg); }
+        .cert-badge::after { right: 10px; transform: rotate(-15deg); }
+
+        .cert-id { position: absolute; bottom: 15px; left: 40px; font-size: 0.75rem; color: #94a3b8; font-family: monospace; }
+
+        /* --- SECCIÓN PREMIUM --- */
+        .premium {
+            background: linear-gradient(135deg, #1e1b4b, #311042, #111827);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            color: white;
+            padding: 70px 40px;
+            border-radius: 32px;
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            box-shadow: 0 30px 60px rgba(79, 70, 229, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: var(--purple);
+            filter: blur(80px);
+            opacity: 0.5;
+        }
+
+        .premium h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -1px; color: #fff; }
+        .premium .price { font-size: 2.2rem; font-weight: 800; color: #38bdf8; margin-bottom: 30px; text-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+        .premium ul { list-style: none; display: inline-block; text-align: left; margin-bottom: 40px; }
+        .premium ul li { margin: 16px 0; font-size: 1.1rem; display: flex; align-items: center; gap: 14px; font-weight: 500; }
+        .premium ul li i { color: #38bdf8; font-size: 1.2rem; }
+
+        /* --- ACCESOS GENERALES Y FOOTER --- */
+        .whatsapp {
+            position: fixed; right: 25px; bottom: 25px; width: 62px; height: 62px; background: #25D366; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; text-decoration: none; color: white; font-size: 30px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 999; transition: var(--transition);
+        }
+        .whatsapp:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6); }
+
+        footer { text-align: center; padding: 50px 20px; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.95rem; margin-top: 80px;}
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            header { padding-top: 150px; }
+            header h1 { font-size: 2.4rem; }
+            section { padding: 40px 15px; }
+            .cert-footer { flex-direction: column; align-items: center; gap: 30px; }
+            .certificate-box { padding: 40px 20px; }
+            .input-group { flex-direction: column; }
+            .certificate-panel input, .certificate-panel .btn-gen { width: 100%; max-width: 100%; }
+            .navbar { width: 95%; padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SPLASH SCREEN DE CARGA -->
+    <div id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-logo-icon">
+                <i class="fa-solid fa-globe"></i>
+            </div>
+            <div class="splash-title">Lingua<span>Pro</span></div>
+            <div class="splash-loader"></div>
+        </div>
+    </div>
+
+    <!-- NAVBAR FLOTANTE -->
+    <nav class="navbar">
+        <a href="#" class="nav-brand">
+            <i class="fa-solid fa-globe" style="color: var(--primary);"></i> LinguaPro
+        </a>
+        <div class="nav-actions">
+            <button class="toggle" onclick="toggleDark()" id="darkModeBtn" aria-label="Modo de pantalla">☀️</button>
+        </div>
+    </nav>
+
+    <!-- HEADER PRINCIPAL -->
+    <header>
+        <div class="badge-pill">
+            <i class="fa-solid fa-sparkles"></i> Plataforma de Idiomas de Vanguardia 2026
+        </div>
+        <h1>Domina nuevos idiomas con <span>Inteligencia Adaptativa</span></h1>
+        <p>Acelera tu fluidez global mediante experiencias inmersivas, laboratorios de voz nativa y un ecosistema diseñado para el éxito ejecutivo.</p>
+        <div class="hero-buttons">
+            <a href="#cursos" class="btn">
+                <i class="fa-solid fa-graduation-cap"></i> Explorar Cursos
+            </a>
+            <a href="https://wa.me/51999999999" class="btn btn-outline" target="_blank" rel="noopener">
+                <i class="fa-solid fa-headset"></i> Clases Privadas VIP
+            </a>
+        </div>
+    </header>
+
+    <!-- SECCIÓN DE CURSOS -->
+    <section id="cursos">
+        <div class="title">
+            <h2>📚 Tus Programas de Estudio</h2>
+            <p>Monitorea y continúa con el progreso de tus módulos activos en tiempo real.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3><i class="fa-solid fa-flag-usa" style="color: #38bdf8;"></i> Inglés Global Pro</h3>
+                <div class="progress-container">
+                    <div class="progress-info"><span>Módulos Avanzados</span><span>80%</span></div>
+                    <div class="progress"><div style="width:80%"></div></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3><i class="fa-solid fa-earth-europe" style="color: #c084fc;"></i> Francés Fluido</h3>
+                <div class="progress-container">
+                    <div class="progress-info"><span>Módulos Avanzados</span><span>55%</span></div>
+                    <div class="progress"><div style="width:55%"></div></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3><i class="fa-solid fa-shield-halved" style="color: #f43f5e;"></i> Alemán Ejecutivo</h3>
+                <div class="progress-container">
+                    <div class="progress-info"><span>Módulos Avanzados</span><span>30%</span></div>
+                    <div class="progress"><div style="width:30%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BANCO DE FLASHCARDS -->
+    <section>
+        <div class="title">
+            <h2>🎴 Flashcards de Vocabulario</h2>
+            <p>Haz clic sobre la tarjeta para revelar su traducción interactiva al instante.</p>
+        </div>
+        <div class="flashcard-area">
+            <div class="flashcard-wrapper">
+                <div class="flashcard" onclick="flipCard()" id="flashcardBox">
+                    <div class="card-front">
+                        <span class="card-hint" id="frontLang">🇺🇸 Inglés</span>
+                        <div class="word" id="frontWord">Apple</div>
+                        <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;"><i class="fa-solid fa-rotate"></i> Click para voltear</span>
+                    </div>
+                    <div class="card-back">
+                        <span class="card-hint">🇪🇸 Español</span>
+                        <div class="word" id="backWord">Manzana</div>
+                        <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;"><i class="fa-solid fa-rotate"></i> Click para voltear</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flash-controls">
+                <button class="btn-nav" onclick="prevCard()" aria-label="Anterior"><i class="fa-solid fa-arrow-left"></i></button>
+                <span id="flashIndex">1 / 3</span>
+                <button class="btn-nav" onclick="nextCard()" aria-label="Siguiente"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIZ INTERACTIVO -->
+    <section>
+        <div class="title">
+            <h2>📝 Desafío de Retención Curricular</h2>
+            <p>Pon a prueba tus conocimientos acumulados durante la semana.</p>
+        </div>
+        <div class="card quiz">
+            <div class="quiz-header">
+                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);" id="quizProgress">Pregunta 1 de 2</span>
+                <span style="font-weight: 800; font-size: 1rem; color: var(--primary);" id="quizScore">Score: 0 Pts</span>
+            </div>
+            <div id="quizQuestion">Cargando desafío...</div>
+            <div class="quiz-options" id="quizOptionsArea"></div>
+            <div class="quiz-feedback" id="quizFeedbackBox"></div>
+        </div>
+    </section>
+
+    <!-- CERTIFICACIÓN -->
+    <section>
+        <div class="title">
+            <h2>🏆 Certificaciones de Aprobación</h2>
+            <p>Genera y valida tus certificados institucionales ingresando tu identidad académica.</p>
+        </div>
+        <div class="card certificate-panel">
+            <div class="input-group">
+                <input id="studentName" placeholder="Escribe tu Nombre y Apellido">
+                <button class="btn-gen" onclick="generateCertificate()">Emitir Certificado</button>
+            </div>
+            
+            <div class="certificate-box" id="certBox">
+                <div class="cert-header">Certificado de Excelencia</div>
+                <div class="cert-sub">LinguaPro International Academy</div>
+                <p class="cert-body">Por cuanto se hace constar que el alumno de nuestra institución de formación internacional</p>
+                <div id="certName">-</div>
+                <p class="cert-body">Ha acreditado satisfactoriamente los exámenes de suficiencia del programa multilingüe de nuestra academia, demostrando competencias avanzadas de comunicación global.</p>
+                
+                <div class="cert-footer">
+                    <div class="cert-signature">
+                        <div class="line"></div>
+                        <p>Dirección Académica</p>
+                    </div>
+                    <div class="cert-badge"><i class="fa-solid fa-award"></i></div>
+                    <div class="cert-signature">
+                        <div class="line"></div>
+                        <p>Registro y Control</p>
+                    </div>
+                </div>
+                <div class="cert-id" id="certSerial">ID VERIFICACIÓN: LP-000000-2026</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PREMIUM -->
+    <section>
+        <div class="premium">
+            <h2>Membresía Global Premium</h2>
+            <div class="price">S/10 Mensuales</div>
+            <ul>
+                <li><i class="fa-solid fa-circle-check"></i> Acceso ilimitado a la totalidad del catálogo idiomático</li>
+                <li><i class="fa-solid fa-circle-check"></i> Recursos auditivos en alta fidelidad y laboratorios nativos</li>
+                <li><i class="fa-solid fa-circle-check"></i> Certificaciones de validez curricular verificables sin costo adicional</li>
+                <li><i class="fa-solid fa-circle-check"></i> Sesiones y tutorías personalizadas semanales con docentes certificados</li>
+            </ul>
+            <br>
+            <a href="https://wa.me/51999999999" class="btn" target="_blank" rel="noopener" style="background: white; color: var(--primary); box-shadow: 0 10px 25px rgba(255,255,255,0.2);">
+                <i class="fa-solid fa-bolt"></i> Solicitar Alta de Suscripción
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        &copy; 2026 LinguaPro Academy. Impulsando la competencia intercultural y global.
+    </footer>
+
+    <a class="whatsapp" href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="Canal directo de Soporte Técnico">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // --- SPLASH SCREEN LOGIC ---
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splashScreen');
+                if (splash) {
+                    splash.classList.add('hidden');
+                }
+            }, 900); // Pequeña pausa elegante de carga inicial
+        });
+
+        // --- PERSISTENCIA Y MODO OSCURO (Nivel por defecto: Oscuro Premium) ---
+        function toggleDark() {
+            document.body.classList.toggle('light');
+            const isLight = document.body.classList.contains('light');
+            document.getElementById('darkModeBtn').innerHTML = isLight ? '🌙' : '☀️';
+            try {
+                localStorage.setItem('lingua_theme', isLight ? 'light' : 'dark');
+            } catch (e) {
+                console.warn("Storage inaccesible");
+            }
+        }
+
+        function loadSavedTheme() {
+            try {
+                const savedTheme = localStorage.getItem('lingua_theme');
+                if (savedTheme === 'light') {
+                    document.body.classList.add('light');
+                    document.getElementById('darkModeBtn').innerHTML = '🌙';
+                } else {
+                    document.body.classList.remove('light');
+                    document.getElementById('darkModeBtn').innerHTML = '☀️';
+                }
+            } catch (e) {
+                console.warn("Storage inaccesible");
+            }
+        }
+
+        // --- BANCO DE DATOS DE FLASHCARDS ---
+        const flashcardsData = [
+            { front: "Apple", back: "Manzana", lang: "🇺🇸 Inglés" },
+            { front: "Thank you", back: "Gracias", lang: "🇺🇸 Inglés" },
+            { front: "Bonjour", back: "Buenos días", lang: "🇫🇷 Francés" }
+        ];
+        let currentFlashIndex = 0;
+        let isTransitioning = false;
+
+        function updateFlashcardUI() {
+            document.getElementById('frontLang').innerText = flashcardsData[currentFlashIndex].lang;
+            document.getElementById('frontWord').innerText = flashcardsData[currentFlashIndex].front;
+            document.getElementById('backWord').innerText = flashcardsData[currentFlashIndex].back;
+            document.getElementById('flashIndex').innerText = `${currentFlashIndex + 1} / ${flashcardsData.length}`;
+        }
+
+        function flipCard() {
+            if (isTransitioning) return;
+            document.getElementById('flashcardBox').classList.toggle('flipped');
+        }
+
+        function handleCardNavigation(nextIndexAction) {
+            const cardBox = document.getElementById('flashcardBox');
+            if (cardBox.classList.contains('flipped')) {
+                isTransitioning = true;
+                cardBox.classList.remove('flipped');
+                setTimeout(() => {
+                    nextIndexAction();
+                    updateFlashcardUI();
+                    isTransitioning = false;
+                }, 300);
+            } else {
+                nextIndexAction();
+                updateFlashcardUI();
+            }
+        }
+
+        function nextCard() {
+            handleCardNavigation(() => {
+                currentFlashIndex = (currentFlashIndex + 1) % flashcardsData.length;
+            });
+        }
+
+        function prevCard() {
+            handleCardNavigation(() => {
+                currentFlashIndex = (currentFlashIndex - 1 + flashcardsData.length) % flashcardsData.length;
+            });
+        }
+
+        // --- SISTEMA DE QUIZ ---
+        const quizData = [
+            {
+                q: "¿Cómo se dice 'Gracias' en inglés?",
+                options: ["Hello", "Thank You", "Goodbye"],
+                correct: 1
+            },
+            {
+                q: "¿Qué significa 'Bonjour' en francés?",
+                options: ["Adiós", "Por favor", "Buenos días / Hola"],
+                correct: 2
+            }
+        ];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let quizAnswered = false;
+
+        function loadQuizQuestion() {
+            quizAnswered = false;
+            const currentData = quizData[currentQuestionIndex];
+            document.getElementById('quizProgress').innerText = `Pregunta ${currentQuestionIndex + 1} de ${quizData.length}`;
+            document.getElementById('quizQuestion').innerText = currentData.q;
+            
+            const optionsArea = document.getElementById('quizOptionsArea');
+            optionsArea.innerHTML = "";
+            
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            feedbackBox.style.display = "none";
+
+            currentData.options.forEach((option, idx) => {
+                const btn = document.createElement('button');
+                btn.innerHTML = `<span>${option}</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; opacity: 0.5;"></i>`;
+                btn.onclick = () => evaluateAnswer(idx, btn);
+                optionsArea.appendChild(btn);
+            });
+        }
+
+        function evaluateAnswer(selectedIdx, selectedButton) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+
+            const currentData = quizData[currentQuestionIndex];
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            const optionsButtons = document.getElementById('quizOptionsArea').children;
+
+            Array.from(optionsButtons).forEach(btn => btn.disabled = true);
+
+            if (selectedIdx === currentData.correct) {
+                selectedButton.classList.add('correct');
+                score += 10;
+                document.getElementById('quizScore').innerText = `Score: ${score} Pts`;
+                feedbackBox.innerHTML = "✅ ¡Excelente! Respuesta totalmente correcta.";
+                feedbackBox.className = "quiz-feedback success";
+            } else {
+                selectedButton.classList.add('incorrect');
+                optionsButtons[currentData.correct].classList.add('correct');
+                feedbackBox.innerHTML = "❌ Respuesta incorrecta. Sigue practicando.";
+                feedbackBox.className = "quiz-feedback danger";
+            }
+            feedbackBox.style.display = "block";
+
+            setTimeout(() => {
+                if (currentQuestionIndex + 1 < quizData.length) {
+                    currentQuestionIndex++;
+                    loadQuizQuestion();
+                } else {
+                    renderQuizSummary();
+                }
+            }, 2000);
+        }
+
+        function renderQuizSummary() {
+            const optionsArea = document.getElementById('quizOptionsArea');
+            optionsArea.innerHTML = "";
+            
+            document.getElementById('quizQuestion').innerText = "¡Desafío completado con éxito!";
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            feedbackBox.innerHTML = `🎉 Tu puntaje final fue de ${score} Pts de ${quizData.length * 10} posibles.`;
+            feedbackBox.className = "quiz-feedback success";
+            feedbackBox.style.display = "block";
+
+            const restartBtn = document.createElement('button');
+            restartBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Reiniciar Desafío';
+            restartBtn.style.marginTop = "15px";
+            restartBtn.style.justifyContent = "center";
+            restartBtn.style.background = "var(--primary)";
+            restartBtn.style.color = "white";
+            restartBtn.style.fontWeight = "700";
+            restartBtn.onclick = resetQuiz;
+            optionsArea.appendChild(restartBtn);
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('quizScore').innerText = `Score: 0 Pts`;
+            loadQuizQuestion();
+        }
+
+        // --- EMISIÓN DE CERTIFICADOS ---
+        function generateCertificate() {
+            const nameInput = document.getElementById('studentName').value.trim();
+            const certBox = document.getElementById('certBox');
+            const certName = document.getElementById('certName');
+            const certSerial = document.getElementById('certSerial');
+
             if (nameInput === "") {
                 alert("Por favor, ingrese un nombre y apellido válido para emitir el diploma.");
                 return;
