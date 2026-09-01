@@ -340,7 +340,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
         }
 
@@ -377,7 +377,7 @@
 
         .card:hover::before { opacity: 1; }
 
-        /* --- NUEVA SECCIÓN DE CURSOS VIRTUALES Y PRECIOS --- */
+        /* --- CURSOS VIRTUALES Y PRECIOS --- */
         .course-price {
             font-size: 1.8rem;
             font-weight: 800;
@@ -691,6 +691,7 @@
 </head>
 <body>
 
+    <!-- SPLASH SCREEN DE CARGA -->
     <div id="splashScreen">
         <div class="splash-content">
             <div class="splash-logo-icon">
@@ -701,6 +702,7 @@
         </div>
     </div>
 
+    <!-- NAVBAR FLOTANTE -->
     <nav class="navbar">
         <a href="#" class="nav-brand">
             <i class="fa-solid fa-globe" style="color: var(--primary);"></i> LinguaPro
@@ -714,6 +716,7 @@
         </div>
     </nav>
 
+    <!-- HEADER PRINCIPAL -->
     <header>
         <div class="badge-pill">
             <i class="fa-solid fa-sparkles"></i> Academia 100% Virtual con Clases en Vivo
@@ -730,6 +733,7 @@
         </div>
     </header>
 
+    <!-- SECCIÓN DE CURSOS VIRTUALES Y PRECIOS -->
     <section id="cursos">
         <div class="title">
             <h2>📚 Programas de Idiomas Virtuales & Tarifas</h2>
@@ -766,9 +770,32 @@
                 </ul>
                 <a href="#inscripcion" class="btn" style="width: 100%; margin-top: 15px;" onclick="selectCourse('Alemán Ejecutivo')">Inscribirme Ahora</a>
             </div>
+            <!-- CURSO NUEVO 1 -->
+            <div class="card">
+                <h3><i class="fa-solid fa-pizza-slice" style="color: #fb923c;"></i> Italiano Conversacional</h3>
+                <div class="course-price">S/ 130 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ mes</span></div>
+                <ul class="course-features">
+                    <li><i class="fa-solid fa-check"></i> Inmersión cultural y fluidez oral</li>
+                    <li><i class="fa-solid fa-check"></i> Talleres virtuales de debate</li>
+                    <li><i class="fa-solid fa-check"></i> Certificación de nivel oficial</li>
+                </ul>
+                <a href="#inscripcion" class="btn" style="width: 100%; margin-top: 15px;" onclick="selectCourse('Italiano Conversacional')">Inscribirme Ahora</a>
+            </div>
+            <!-- CURSO NUEVO 2 -->
+            <div class="card">
+                <h3><i class="fa-solid fa-globe-americas" style="color: #34d399;"></i> Portugués de Negocios</h3>
+                <div class="course-price">S/ 135 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ mes</span></div>
+                <ul class="course-features">
+                    <li><i class="fa-solid fa-check"></i> Vocabulario corporativo y comercial</li>
+                    <li><i class="fa-solid fa-check"></i> Redacción de correos ejecutivos</li>
+                    <li><i class="fa-solid fa-check"></i> Horarios flexibles para profesionales</li>
+                </ul>
+                <a href="#inscripcion" class="btn" style="width: 100%; margin-top: 15px;" onclick="selectCourse('Portugués de Negocios')">Inscribirme Ahora</a>
+            </div>
         </div>
     </section>
 
+    <!-- FORMULARIO DE INSCRIPCIÓN VIRTUAL -->
     <section id="inscripcion">
         <div class="title">
             <h2>💻 Formulario de Inscripción Virtual</h2>
@@ -796,6 +823,8 @@
                             <option value="Inglés Global Pro">Inglés Global Pro (S/ 120/mes)</option>
                             <option value="Francés Fluido">Francés Fluido (S/ 140/mes)</option>
                             <option value="Alemán Ejecutivo">Alemán Ejecutivo (S/ 160/mes)</option>
+                            <option value="Italiano Conversacional">Italiano Conversacional (S/ 130/mes)</option>
+                            <option value="Portugués de Negocios">Portugués de Negocios (S/ 135/mes)</option>
                         </select>
                     </div>
                 </div>
@@ -809,6 +838,7 @@
         </div>
     </section>
 
+    <!-- BANCO DE FLASHCARDS -->
     <section>
         <div class="title">
             <h2>🎴 Flashcards de Vocabulario Interactivo</h2>
@@ -837,14 +867,15 @@
         </div>
     </section>
 
+    <!-- QUIZ INTERACTIVO EXPANDIDO -->
     <section>
         <div class="title">
             <h2>📝 Desafío de Retención Curricular</h2>
-            <p>Pon a prueba tus conocimientos acumulados durante la semana.</p>
+            <p>Pon a prueba tus conocimientos acumulados en los diferentes idiomas.</p>
         </div>
         <div class="card quiz">
             <div class="quiz-header">
-                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);" id="quizProgress">Pregunta 1 de 2</span>
+                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);" id="quizProgress">Pregunta 1 de 4</span>
                 <span style="font-weight: 800; font-size: 1rem; color: var(--primary);" id="quizScore">Score: 0 Pts</span>
             </div>
             <div id="quizQuestion">Cargando desafío...</div>
@@ -853,6 +884,7 @@
         </div>
     </section>
 
+    <!-- CERTIFICACIÓN -->
     <section>
         <div class="title">
             <h2>🏆 Certificaciones de Aprobación</h2>
@@ -887,6 +919,7 @@
         </div>
     </section>
 
+    <!-- SECCIÓN PREMIUM -->
     <section>
         <div class="premium">
             <h2>Membresía Global Premium Virtual</h2>
@@ -904,6 +937,7 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer>
         &copy; 2026 LinguaPro Academy. Clases virtuales impulsando la competencia intercultural y global.
     </footer>
@@ -961,14 +995,11 @@
         // --- MANEJO DE INSCRIPCIÓN ---
         function handleEnrollment(event) {
             event.preventDefault();
-            const name = document.getElementById('fullName').value;
-            const course = document.getElementById('courseSelect').value;
             const successBox = document.getElementById('enrollSuccess');
             
             successBox.style.display = "block";
             successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             
-            // Opcional: Redirección automática opcional o limpieza
             document.getElementById('enrollForm').reset();
         }
 
@@ -976,7 +1007,9 @@
         const flashcardsData = [
             { front: "Apple", back: "Manzana", lang: "🇺🇸 Inglés" },
             { front: "Thank you", back: "Gracias", lang: "🇺🇸 Inglés" },
-            { front: "Bonjour", back: "Buenos días", lang: "🇫🇷 Francés" }
+            { front: "Bonjour", back: "Buenos días", lang: "🇫🇷 Francés" },
+            { front: "Grazie", back: "Gracias", lang: "🇮🇹 Italiano" },
+            { front: "Obrigado", back: "Gracias", lang: "🇧🇷 Portugués" }
         ];
         let currentFlashIndex = 0;
         let isTransitioning = false;
@@ -1021,7 +1054,7 @@
             });
         }
 
-        // --- SISTEMA DE QUIZ ---
+        // --- SISTEMA DE QUIZ EXPANDIDO ---
         const quizData = [
             {
                 q: "¿Cómo se dice 'Gracias' en inglés?",
@@ -1032,6 +1065,16 @@
                 q: "¿Qué significa 'Bonjour' en francés?",
                 options: ["Adiós", "Por favor", "Buenos días / Hola"],
                 correct: 2
+            },
+            {
+                q: "¿Cuál es la traducción correcta de 'Grazie' en italiano?",
+                options: ["Gracias", "Hola", "Por favor"],
+                correct: 0
+            },
+            {
+                q: "¿Qué significa 'Obrigado' en portugués?",
+                options: ["Buenos días", "Gracias", "Hasta luego"],
+                correct: 1
             }
         ];
         let currentQuestionIndex = 0;
